@@ -3,9 +3,9 @@ import os
 
 import aws_cdk as cdk
 
-from gps_position_publisher.gps_position_publisher_stack import GpsPositionPublisherStack
+from cdk_stack.message_consumer import MessageConsumerStack
 
 app = cdk.App()
-GpsPositionPublisherStack(app, "GpsPositionPublisherStack",)
+MessageConsumerStack(app, "GpsPositionPublisherStack", )
 
 app.synth()
