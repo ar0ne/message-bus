@@ -1,6 +1,10 @@
+import logging
+
 import boto3
 import json
 import os
+
+logger = logging.getLogger()
 
 
 def handler(event, context) -> dict:
@@ -9,7 +13,7 @@ def handler(event, context) -> dict:
 
         sqs_message = event["Records"][0]["body"]
         message = json.loads(sqs_message)
-        print(message)
+        logging.debug(message)
 
         dynamodb = boto3.resource("dynamodb")
         table = dynamodb.Table(message_table_name)
@@ -18,9 +22,9 @@ def handler(event, context) -> dict:
             "message": message["message"]
         })
         if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
-            print("Message inserted successfully")
+            logging.debug("Message inserted successfully")
         else:
-            print("Message request insertion failed")
+            logging.debug("Message request insertion failed")
 
         # TODO: send message to SNS topic
 
@@ -32,7 +36,7 @@ def handler(event, context) -> dict:
             "body": json.dumps({"status": "success", "message": "Notification sent"})
         }
     except Exception as ex:
-        print(str(ex))
+        logging.info(str(ex))
         return {
             "statusCode": 500,
             "body": json.dumps({"status": "fail", "message": "Notification failed"})
