@@ -1,19 +1,23 @@
-# What's it
+# About
+...
 
 
 
-```
-$ python3 -m venv .venv
-```
+# AWS CDK 
 
 ```
-$ source .venv/bin/activate
+cdk synth
 ```
 
-```
-$ pip install -r requirements.txt
-```
 
-```
-$ cdk synth
-```
+# Localstack
+
+Install `localstack` and `cdklocal`.
+
+`cdklocal bootstrap`
+
+`cdklocal deploy`
+
+
+
+
